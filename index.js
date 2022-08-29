@@ -1,5 +1,8 @@
 import { inquirerMenu, pausa, leerInput } from './helpers/inquirer.js';
 import 'colors';
+import { login, register } from './controller/auth.js';
+
+let usuario = null;
 
 const menu1 = async () => {
 
@@ -28,16 +31,22 @@ const menu1 = async () => {
                     let email = await leerInput('Ingrese el correo: ');
                     let password = await leerInput('Ingrese la contraseña: ', 'password');
  
-                    console.log( { name, username, email, password } );
+                    let usuarioRegistrado = await register({ name, username, email, password });
+                    if( usuarioRegistrado ){ 
+                        console.log( `${ 'Exito: '.green } Se ha registrado el usuario` );
+                        console.table( usuarioRegistrado );
+                    }
                 }
                 break; 
             case 2:
                 {
                     let username = await leerInput('Ingrese el username: ');
                     let password = await leerInput('Ingrese la contraseña: ', 'password');
-                    console.log( { username, password } );
-                    await menu2();
-                     
+                
+                    usuario = await login( username, password );
+                    if ( usuario ) {
+                        await menu2();
+                    }
                 }
                 break; 
         }
