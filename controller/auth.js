@@ -11,7 +11,10 @@ const register = async ( user ) => {
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
         } 
-         
+        if( !messageError ) {
+            messageError = 'Error en el servicor web';
+        }
+        
         console.log(`${'Errror: '.red } ${messageError}`);
         return null;
     }
@@ -26,7 +29,10 @@ const login = async ( username, password ) => {
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
         } 
-         
+        if( !messageError ) {
+            messageError = 'Error en el servicor web';
+        } 
+        
         console.log(`${'Errror: '.red } ${messageError}`);
         return null;
     }

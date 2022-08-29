@@ -19,8 +19,11 @@ const generarQr =  async ( url, user ) => {
         let messageError = error?.response?.data?.errors?.shift().msg;
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
-        } 
-         
+        }  
+        if( !messageError ) {
+            messageError = 'Error en el servicor web';
+        }
+
         console.log(`${'Errror: '.red } ${messageError}`);
         return null;
     }
@@ -40,6 +43,9 @@ const getHistorialQrs = async ( user ) => {
         let messageError = error?.response?.data?.errors?.shift().msg;
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
+        }
+        if( !messageError ) {
+            messageError = 'Error en el servicor web';
         } 
          
         console.log(`${'Errror: '.red } ${messageError}`);
