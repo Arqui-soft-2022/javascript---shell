@@ -1,5 +1,6 @@
 import { inquirerMenu, pausa, leerInput } from './helpers/inquirer.js';
 import 'colors';
+import { generarQr, getHistorialQrs } from './controller/qr.js';
 import { login, register } from './controller/auth.js';
 
 let usuario = null;
@@ -76,18 +77,19 @@ const menu2 = async () => {
         opt = await inquirerMenu(choices);
         switch ( opt ) {
             case 1:
-                let url = await leerInput('Ingrese la Url: ');
-                console.log( url );
+                const url = await leerInput('Ingrese la Url: ');
+                const qr = await generarQr( url, usuario.id_usuario );
                 break;
             case 2:
-                console.table( 'Historial de codigos qr' );
+                let codes = await getHistorialQrs( usuario.id_usuario );
+                console.table( codes );    
                 break;
             case 3:
-                console.log( 'Cerrar sesion' );
+                usuario = null;
                 break;
         }
         if ( opt !== 3 ) await pausa();
-    } while ( opt !== 3 )
+    } while ( opt !== 3 || usuario )
 }
 
 menu1();
