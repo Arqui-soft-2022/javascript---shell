@@ -15,3 +15,8 @@ npm install
 ```sh
 npm link
 ```
+### Comando
+
+```sh
+qrcode
+```
