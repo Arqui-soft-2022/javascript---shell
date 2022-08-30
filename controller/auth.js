@@ -14,7 +14,6 @@ const register = async ( user ) => {
         if( !messageError ) {
             messageError = 'Error en el servicor web';
         }
-        
         console.log(`${'Errror: '.red } ${messageError}`);
         return null;
     }

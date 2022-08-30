@@ -1,4 +1,4 @@
-#!/user/bin/env node
+#! /usr/bin/env node
 import { inquirerMenu, pausa, leerInput } from './helpers/inquirer.js';
 import 'colors';
 import { generarQr, getHistorialQrs } from './controller/qr.js';
