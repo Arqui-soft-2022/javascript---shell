@@ -4,6 +4,9 @@
   "description": "Software que permite generar códigos QR como imagen (JPG o PNG) para direcciones URL de sitios web o redes sociales. Consiste en escribir la URL y generar la imagen QR junto a un ícono que indique el tipo de recurso.",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "QrCodeCli": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
