@@ -7,15 +7,13 @@ import 'colors';
 const generarQr =  async ( url, user ) => {
     try { 
         let { data: { qr_code } } = await axios.post('https://codeqr-generate.herokuapp.com/api/code/', { url, user });
-        const rutaImage = `img/${uuidv4()}.png`;
+        const rutaImage = `Downloads/${uuidv4()}.png`;
         let image = qr_code.url_code;
         image = image.split(';base64,').pop();
         console.log( `Exito: Archivo guardado en: `.green + path.join( process.cwd(), rutaImage ) );
         fs.writeFileSync(rutaImage, image, {encoding: 'base64'});
         return qr_code;
-
     } catch (error) {
-        console.log(error);
         let messageError = error?.response?.data?.errors?.shift().msg;
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
