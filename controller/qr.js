@@ -3,17 +3,23 @@ import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import 'colors';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const generarQr =  async ( url, user ) => {
     try { 
         let { data: { qr_code } } = await axios.post('https://codeqr-generate.herokuapp.com/api/code/', { url, user });
-        const rutaImage = `Downloads/${uuidv4()}.png`;
         let image = qr_code.url_code;
+        
+        const __dirname = dirname(fileURLToPath( import.meta.url ));
+        const rutaImage = path.join( __dirname, `../downloads/${uuidv4()}.png` );
         image = image.split(';base64,').pop();
-        console.log( `Exito: Archivo guardado en: `.green + path.join( process.cwd(), rutaImage ) );
+
+        console.log( `Exito: Archivo guardado en: `.green + rutaImage );
         fs.writeFileSync(rutaImage, image, {encoding: 'base64'});
         return qr_code;
     } catch (error) {
+        console.log(error);
         let messageError = error?.response?.data?.errors?.shift().msg;
         if( !messageError ) {
             messageError = error?.response?.data?.msg;
